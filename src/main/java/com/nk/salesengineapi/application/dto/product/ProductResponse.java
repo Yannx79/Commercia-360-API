@@ -1,4 +1,4 @@
-package com.nk.salesengineapi.application.dto;
+package com.nk.salesengineapi.application.dto.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,12 +11,13 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StoreResponse {
+public class ProductResponse {
 
     private Long id;
     private String description;
-    private String region;
-    private String regionName;
+    private String category;
+    private String categoryDescription;
+    private Double unitPrice;
     private Date created;
 
 }

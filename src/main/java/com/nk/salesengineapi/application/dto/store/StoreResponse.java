@@ -1,23 +1,22 @@
-package com.nk.salesengineapi.application.dto;
+package com.nk.salesengineapi.application.dto.store;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StoreRequest {
+public class StoreResponse {
 
-    @NotBlank(message = "Description is required")
+    private Long id;
     private String description;
-
-    @NotBlank(message = "Region is required")
     private String region;
-
     private String regionName;
+    private Date created;
 
 }

@@ -1,4 +1,4 @@
-package com.nk.salesengineapi.application.dto;
+package com.nk.salesengineapi.application.dto.sales;
 
 import jakarta.validation.constraints.NotEmpty;
 

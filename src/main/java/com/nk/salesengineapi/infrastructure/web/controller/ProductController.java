@@ -1,7 +1,7 @@
 package com.nk.salesengineapi.infrastructure.web.controller;
 
-import com.nk.salesengineapi.application.dto.ProductRequest;
-import com.nk.salesengineapi.application.dto.ProductResponse;
+import com.nk.salesengineapi.application.dto.product.ProductRequest;
+import com.nk.salesengineapi.application.dto.product.ProductResponse;
 import com.nk.salesengineapi.application.port.in.ProductUseCase;
 import com.nk.salesengineapi.domain.model.ProductModel;
 import com.nk.salesengineapi.infrastructure.web.mapper.ProductDtoMapper;

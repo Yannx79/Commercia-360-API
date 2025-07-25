@@ -1,5 +1,7 @@
-package com.nk.salesengineapi.application.dto;
+package com.nk.salesengineapi.application.dto.time;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,15 +13,24 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TimeResponse {
+public class TimeRequest {
 
-    private Long id;
+    @NotNull(message = "Date is required")
     private Date date;
+
+    @NotBlank(message = "Description is required")
     private String description;
+
+    @NotBlank(message = "Month is required")
     private String month;
+
     private String monthDescription;
+
+    @NotBlank(message = "Year is required")
     private String year;
+
     private String week;
+
     private String weekDescription;
 
 }

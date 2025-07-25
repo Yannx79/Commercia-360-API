@@ -1,7 +1,7 @@
 package com.nk.salesengineapi.infrastructure.web.mapper;
 
-import com.nk.salesengineapi.application.dto.ProductRequest;
-import com.nk.salesengineapi.application.dto.ProductResponse;
+import com.nk.salesengineapi.application.dto.product.ProductRequest;
+import com.nk.salesengineapi.application.dto.product.ProductResponse;
 import com.nk.salesengineapi.domain.model.ProductModel;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
