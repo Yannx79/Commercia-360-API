@@ -17,21 +17,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StoreController {
 
-    private final StoreUseCase productUseCase;
+    private final StoreUseCase storeUseCase;
     private final StoreDtoMapper modelMapper;
-    private final StoreDtoMapper productDtoMapper;
+    private final StoreDtoMapper storeDtoMapper;
 
     @PostMapping
     public ResponseEntity<StoreResponse> create(@RequestBody StoreRequest request) {
         StoreModel model = modelMapper.toDomain(request);
-        StoreModel saved = productUseCase.create(model);
+        StoreModel saved = storeUseCase.create(model);
         StoreResponse response = modelMapper.toResponse(saved);
         return ResponseEntity.created(URI.create("/api/stores/" + saved.getId())).body(response);
     }
 
     @GetMapping
     public ResponseEntity<List<StoreResponse>> getAll() {
-        List<StoreModel> models = productUseCase.getAll();
+        List<StoreModel> models = storeUseCase.getAll();
         List<StoreResponse> responses = models
                 .stream()
                 .map(modelMapper::toResponse)
@@ -41,22 +41,22 @@ public class StoreController {
 
     @GetMapping("/{id}")
     public ResponseEntity<StoreResponse> getById(@PathVariable Long id) {
-        StoreModel model = productUseCase.getById(id);
+        StoreModel model = storeUseCase.getById(id);
         StoreResponse productResponse = modelMapper.toResponse(model);
         return ResponseEntity.ok(productResponse);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<StoreResponse> update(@PathVariable Long id, @RequestBody StoreRequest request) {
-        StoreModel model = productDtoMapper.toDomain(request);
-        StoreModel update = productUseCase.update(id, model);
+        StoreModel model = storeDtoMapper.toDomain(request);
+        StoreModel update = storeUseCase.update(id, model);
         StoreResponse response = modelMapper.toResponse(update);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        productUseCase.delete(id);
+        storeUseCase.delete(id);
         return ResponseEntity.noContent().build();
     }
 

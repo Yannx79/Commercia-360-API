@@ -22,10 +22,10 @@ public class TimeEntity {
     private Long id;
     private Date date;
     private String description;
-    private String month;
+    private String monthCode;
     private String monthDescription;
-    private String year;
-    private String week;
+    private String yearCode;
+    private String weekCode;
     private String weekDescription;
 
     @ManyToMany(mappedBy = "times")

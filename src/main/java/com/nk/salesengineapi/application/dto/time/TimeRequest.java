@@ -22,14 +22,14 @@ public class TimeRequest {
     private String description;
 
     @NotBlank(message = "Month is required")
-    private String month;
+    private String monthCode;
 
     private String monthDescription;
 
     @NotBlank(message = "Year is required")
-    private String year;
+    private String yearCode;
 
-    private String week;
+    private String weekCode;
 
     private String weekDescription;
 

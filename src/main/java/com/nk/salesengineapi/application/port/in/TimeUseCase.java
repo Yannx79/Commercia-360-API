@@ -1,4 +1,6 @@
 package com.nk.salesengineapi.application.port.in;
 
-public interface TimeUseCase {
+import com.nk.salesengineapi.domain.model.TimeModel;
+
+public interface TimeUseCase extends IGenericUseCase<TimeModel, Long> {
 }
