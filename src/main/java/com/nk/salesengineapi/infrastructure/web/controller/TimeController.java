@@ -15,11 +15,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/times")
 @RequiredArgsConstructor
-public class TimeController {
+public class TimeController implements  IGenericRestController<TimeRequest, TimeResponse, Long> {
 
     private final TimeUseCase timeUseCase;
     private final TimeDtoMapper modelMapper;
-    private final TimeDtoMapper timeDtoMapper;
 
     @PostMapping
     public ResponseEntity<TimeResponse> create(@RequestBody TimeRequest request) {
@@ -48,7 +47,7 @@ public class TimeController {
 
     @PutMapping("/{id}")
     public ResponseEntity<TimeResponse> update(@PathVariable Long id, @RequestBody TimeRequest request) {
-        TimeModel model = timeDtoMapper.toDomain(request);
+        TimeModel model = modelMapper.toDomain(request);
         TimeModel update = timeUseCase.update(id, model);
         TimeResponse response = modelMapper.toResponse(update);
         return ResponseEntity.ok(response);

@@ -15,12 +15,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/stores")
 @RequiredArgsConstructor
-public class StoreController {
+public class StoreController implements IGenericRestController<StoreRequest, StoreResponse, Long> {
 
     private final StoreUseCase storeUseCase;
     private final StoreDtoMapper modelMapper;
-    private final StoreDtoMapper storeDtoMapper;
 
+    @Override
     @PostMapping
     public ResponseEntity<StoreResponse> create(@RequestBody StoreRequest request) {
         StoreModel model = modelMapper.toDomain(request);
@@ -29,6 +29,7 @@ public class StoreController {
         return ResponseEntity.created(URI.create("/api/stores/" + saved.getId())).body(response);
     }
 
+    @Override
     @GetMapping
     public ResponseEntity<List<StoreResponse>> getAll() {
         List<StoreModel> models = storeUseCase.getAll();
@@ -39,6 +40,7 @@ public class StoreController {
         return ResponseEntity.ok(responses);
     }
 
+    @Override
     @GetMapping("/{id}")
     public ResponseEntity<StoreResponse> getById(@PathVariable Long id) {
         StoreModel model = storeUseCase.getById(id);
@@ -46,14 +48,16 @@ public class StoreController {
         return ResponseEntity.ok(productResponse);
     }
 
+    @Override
     @PutMapping("/{id}")
     public ResponseEntity<StoreResponse> update(@PathVariable Long id, @RequestBody StoreRequest request) {
-        StoreModel model = storeDtoMapper.toDomain(request);
+        StoreModel model = modelMapper.toDomain(request);
         StoreModel update = storeUseCase.update(id, model);
         StoreResponse response = modelMapper.toResponse(update);
         return ResponseEntity.ok(response);
     }
 
+    @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         storeUseCase.delete(id);

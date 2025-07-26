@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class StoreRespositoryAdapter implements StoreRepositoryPort {
+public class StoreRepositoryAdapter implements StoreRepositoryPort {
 
     private final StoreJpaRepository jpaRepository;
     private final StoreEntityMapper modelMapper;

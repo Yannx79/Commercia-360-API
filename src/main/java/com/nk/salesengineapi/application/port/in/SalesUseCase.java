@@ -1,4 +1,6 @@
 package com.nk.salesengineapi.application.port.in;
 
-public interface SalesUseCase {
+import com.nk.salesengineapi.domain.model.SalesModel;
+
+public interface SalesUseCase extends IGenericUseCase<SalesModel, Long> {
 }

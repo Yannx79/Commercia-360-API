@@ -1,8 +1,8 @@
 package com.nk.salesengineapi.application.dto.sales;
 
+import com.nk.salesengineapi.application.dto.product.ProductResponse;
 import com.nk.salesengineapi.application.dto.store.StoreResponse;
 import com.nk.salesengineapi.application.dto.time.TimeResponse;
-import com.nk.salesengineapi.application.dto.product.ProductResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

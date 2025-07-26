@@ -15,11 +15,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
-public class ProductController {
+public class ProductController implements IGenericRestController<ProductRequest, ProductResponse, Long> {
 
     private final ProductUseCase productUseCase;
     private final ProductDtoMapper modelMapper;
-    private final ProductDtoMapper productDtoMapper;
 
     @PostMapping
     public ResponseEntity<ProductResponse> create(@RequestBody ProductRequest request) {
@@ -48,7 +47,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponse> update(@PathVariable Long id, @RequestBody ProductRequest request) {
-        ProductModel model = productDtoMapper.toDomain(request);
+        ProductModel model = modelMapper.toDomain(request);
         ProductModel update = productUseCase.update(id, model);
         ProductResponse response = modelMapper.toResponse(update);
         return ResponseEntity.ok(response);
