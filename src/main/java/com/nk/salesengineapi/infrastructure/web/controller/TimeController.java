@@ -5,6 +5,7 @@ import com.nk.salesengineapi.application.dto.time.TimeResponse;
 import com.nk.salesengineapi.application.port.in.TimeUseCase;
 import com.nk.salesengineapi.domain.model.TimeModel;
 import com.nk.salesengineapi.infrastructure.web.mapper.TimeDtoMapper;
+import com.nk.salesengineapi.infrastructure.web.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,36 +22,36 @@ public class TimeController implements  IGenericRestController<TimeRequest, Time
     private final TimeDtoMapper modelMapper;
 
     @PostMapping
-    public ResponseEntity<TimeResponse> create(@RequestBody TimeRequest request) {
+    public ResponseEntity<ApiResponse<TimeResponse>> create(@RequestBody TimeRequest request) {
         TimeModel model = modelMapper.toDomain(request);
         TimeModel saved = timeUseCase.create(model);
         TimeResponse response = modelMapper.toResponse(saved);
-        return ResponseEntity.created(URI.create("/api/times/" + saved.getId())).body(response);
+        return ResponseEntity.created(URI.create("/api/times/" + saved.getId())).body(ApiResponse.success(response));
     }
 
     @GetMapping
-    public ResponseEntity<List<TimeResponse>> getAll() {
+    public ResponseEntity<ApiResponse<List<TimeResponse>>> getAll() {
         List<TimeModel> models = timeUseCase.getAll();
         List<TimeResponse> responses = models
                 .stream()
                 .map(modelMapper::toResponse)
                 .toList();
-        return ResponseEntity.ok(responses);
+        return ResponseEntity.ok(ApiResponse.success(responses));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TimeResponse> getById(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<TimeResponse>> getById(@PathVariable Long id) {
         TimeModel model = timeUseCase.getById(id);
         TimeResponse timeResponse = modelMapper.toResponse(model);
-        return ResponseEntity.ok(timeResponse);
+        return ResponseEntity.ok(ApiResponse.success(timeResponse));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TimeResponse> update(@PathVariable Long id, @RequestBody TimeRequest request) {
+    public ResponseEntity<ApiResponse<TimeResponse>> update(@PathVariable Long id, @RequestBody TimeRequest request) {
         TimeModel model = modelMapper.toDomain(request);
         TimeModel update = timeUseCase.update(id, model);
         TimeResponse response = modelMapper.toResponse(update);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     @DeleteMapping("/{id}")

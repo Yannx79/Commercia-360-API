@@ -5,6 +5,7 @@ import com.nk.salesengineapi.application.dto.store.StoreResponse;
 import com.nk.salesengineapi.application.port.in.StoreUseCase;
 import com.nk.salesengineapi.domain.model.StoreModel;
 import com.nk.salesengineapi.infrastructure.web.mapper.StoreDtoMapper;
+import com.nk.salesengineapi.infrastructure.web.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,39 +23,39 @@ public class StoreController implements IGenericRestController<StoreRequest, Sto
 
     @Override
     @PostMapping
-    public ResponseEntity<StoreResponse> create(@RequestBody StoreRequest request) {
+    public ResponseEntity<ApiResponse<StoreResponse>> create(@RequestBody StoreRequest request) {
         StoreModel model = modelMapper.toDomain(request);
         StoreModel saved = storeUseCase.create(model);
         StoreResponse response = modelMapper.toResponse(saved);
-        return ResponseEntity.created(URI.create("/api/stores/" + saved.getId())).body(response);
+        return ResponseEntity.created(URI.create("/api/stores/" + saved.getId())).body(ApiResponse.success(response));
     }
 
     @Override
     @GetMapping
-    public ResponseEntity<List<StoreResponse>> getAll() {
+    public ResponseEntity<ApiResponse<List<StoreResponse>>> getAll() {
         List<StoreModel> models = storeUseCase.getAll();
         List<StoreResponse> responses = models
                 .stream()
                 .map(modelMapper::toResponse)
                 .toList();
-        return ResponseEntity.ok(responses);
+        return ResponseEntity.ok(ApiResponse.success(responses));
     }
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<StoreResponse> getById(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<StoreResponse>> getById(@PathVariable Long id) {
         StoreModel model = storeUseCase.getById(id);
-        StoreResponse productResponse = modelMapper.toResponse(model);
-        return ResponseEntity.ok(productResponse);
+        StoreResponse response = modelMapper.toResponse(model);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<StoreResponse> update(@PathVariable Long id, @RequestBody StoreRequest request) {
+    public ResponseEntity<ApiResponse<StoreResponse>> update(@PathVariable Long id, @RequestBody StoreRequest request) {
         StoreModel model = modelMapper.toDomain(request);
         StoreModel update = storeUseCase.update(id, model);
         StoreResponse response = modelMapper.toResponse(update);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     @Override

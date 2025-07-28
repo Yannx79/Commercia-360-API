@@ -2,7 +2,6 @@ package com.nk.salesengineapi.infrastructure.persistence.adapter;
 
 import com.nk.salesengineapi.application.port.out.SalesRepositoryPort;
 import com.nk.salesengineapi.domain.model.SalesModel;
-import com.nk.salesengineapi.domain.model.TimeModel;
 import com.nk.salesengineapi.infrastructure.persistence.entity.SalesEntity;
 import com.nk.salesengineapi.infrastructure.persistence.mapper.SalesEntityMapper;
 import com.nk.salesengineapi.infrastructure.persistence.repository.SalesJpaRepository;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
