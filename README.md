@@ -36,13 +36,13 @@ This architecture enhances testability, maintainability, and modularity. It allo
 
 ---
 
-## Documentación de Endpoints de la API
+## API Endpoints Documentation
 
 [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
 ---
 
-## Endpoints de la API
+## API Endpoints
 
 | Método | Endpoint               | Descripción                | Controlador        |
 |--------|------------------------|----------------------------|--------------------|
