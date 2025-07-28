@@ -35,6 +35,15 @@ public class TimeRepositoryAdapter implements TimeRepositoryPort {
     }
 
     @Override
+    public List<TimeModel> findAllById(List<Long> ids) {
+        List<TimeEntity> list = jpaRepository.findAllById(ids);
+        return list
+                .stream()
+                .map(modelMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<TimeModel> findById(Long id) {
         return jpaRepository.findById(id)
                 .map(modelMapper::toDomain);

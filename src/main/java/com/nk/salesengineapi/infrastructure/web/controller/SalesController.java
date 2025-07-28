@@ -5,6 +5,7 @@ import com.nk.salesengineapi.application.dto.sales.SalesResponse;
 import com.nk.salesengineapi.application.port.in.SalesUseCase;
 import com.nk.salesengineapi.domain.model.SalesModel;
 import com.nk.salesengineapi.infrastructure.web.mapper.SalesDtoMapper;
+import com.nk.salesengineapi.infrastructure.web.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,39 +23,39 @@ public class SalesController implements IGenericRestController<SalesRequest, Sal
 
     @Override
     @PostMapping
-    public ResponseEntity<SalesResponse> create(SalesRequest salesRequest) {
+    public ResponseEntity<ApiResponse<SalesResponse>> create(SalesRequest salesRequest) {
         SalesModel model = mapper.toDomain(salesRequest);
         SalesModel saved = salesUseCase.create(model);
         SalesResponse response = mapper.toResponse(saved);
-        return ResponseEntity.created(URI.create("/api/sales/" + saved.getId())).body(response);
+        return ResponseEntity.created(URI.create("/api/sales/" + saved.getId())).body(ApiResponse.success(response));
     }
 
     @Override
     @GetMapping
-    public ResponseEntity<List<SalesResponse>> getAll() {
+    public ResponseEntity<ApiResponse<List<SalesResponse>>> getAll() {
         List<SalesModel> models = salesUseCase.getAll();
         List<SalesResponse> responses = models
                 .stream()
                 .map(mapper::toResponse)
                 .toList();
-        return ResponseEntity.ok(responses);
+        return ResponseEntity.ok(ApiResponse.success(responses));
     }
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<SalesResponse> getById(Long id) {
+    public ResponseEntity<ApiResponse<SalesResponse>> getById(Long id) {
         SalesModel model = salesUseCase.getById(id);
         SalesResponse response = mapper.toResponse(model);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<SalesResponse> update(Long id, SalesRequest request) {
+    public ResponseEntity<ApiResponse<SalesResponse>> update(Long id, SalesRequest request) {
         SalesModel model = mapper.toDomain(request);
         SalesModel update = salesUseCase.update(id, model);
         SalesResponse response = mapper.toResponse(update);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     @Override

@@ -27,6 +27,15 @@ public class SalesRepositoryAdapter implements SalesRepositoryPort {
     }
 
     @Override
+    public List<SalesModel> findAllById(List<Long> ids) {
+        List<SalesEntity> list = jpaRepository.findAllById(ids);
+        return list
+                .stream()
+                .map(mapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<SalesModel> findAll() {
         return jpaRepository.findAll()
                 .stream()

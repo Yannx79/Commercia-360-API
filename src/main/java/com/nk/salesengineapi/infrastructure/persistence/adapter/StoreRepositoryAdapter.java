@@ -20,6 +20,15 @@ public class StoreRepositoryAdapter implements StoreRepositoryPort {
     private final StoreEntityMapper modelMapper;
 
     @Override
+    public List<StoreModel> findAllById(List<Long> ids) {
+        List<StoreEntity> list = jpaRepository.findAllById(ids);
+        return list
+                .stream()
+                .map(modelMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public StoreModel save(StoreModel model) {
         StoreEntity storeEntity = modelMapper.toEntity(model);
         StoreEntity saved = jpaRepository.save(storeEntity);

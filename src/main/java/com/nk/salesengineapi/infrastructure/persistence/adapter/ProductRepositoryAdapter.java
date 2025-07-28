@@ -34,6 +34,15 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
     }
 
     @Override
+    public List<ProductModel> findAllById(List<Long> ids) {
+        List<ProductEntity> list = jpaRepository.findAllById(ids);
+        return list
+                .stream()
+                .map(modelMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<ProductModel> findById(Long id) {
         return jpaRepository.findById(id)
                 .map(modelMapper::toDomain);
