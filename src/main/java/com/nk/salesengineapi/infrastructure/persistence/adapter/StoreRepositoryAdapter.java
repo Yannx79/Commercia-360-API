@@ -2,6 +2,7 @@ package com.nk.salesengineapi.infrastructure.persistence.adapter;
 
 import com.nk.salesengineapi.application.port.out.StoreRepositoryPort;
 import com.nk.salesengineapi.domain.model.StoreModel;
+import com.nk.salesengineapi.domain.model.TimeModel;
 import com.nk.salesengineapi.infrastructure.persistence.entity.StoreEntity;
 import com.nk.salesengineapi.infrastructure.persistence.mapper.StoreEntityMapper;
 import com.nk.salesengineapi.infrastructure.persistence.repository.StoreJpaRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -18,6 +20,15 @@ public class StoreRepositoryAdapter implements StoreRepositoryPort {
 
     private final StoreJpaRepository jpaRepository;
     private final StoreEntityMapper modelMapper;
+
+    @Override
+    public List<StoreModel> findAllById(List<Long> ids) {
+        List<StoreEntity> list = jpaRepository.findAllById(ids);
+        return list
+                .stream()
+                .map(modelMapper::toDomain)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public StoreModel save(StoreModel model) {

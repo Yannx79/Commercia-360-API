@@ -1,9 +1,11 @@
 package com.nk.salesengineapi.application.dto.sales;
 
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Data;
 
 import java.util.Set;
 
+@Data
 public class SalesRequest {
 
     @NotEmpty(message = "At least one time ID is required")

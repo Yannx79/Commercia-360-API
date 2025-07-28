@@ -2,6 +2,7 @@ package com.nk.salesengineapi.infrastructure.persistence.adapter;
 
 import com.nk.salesengineapi.application.port.out.ProductRepositoryPort;
 import com.nk.salesengineapi.domain.model.ProductModel;
+import com.nk.salesengineapi.domain.model.TimeModel;
 import com.nk.salesengineapi.infrastructure.persistence.entity.ProductEntity;
 import com.nk.salesengineapi.infrastructure.persistence.mapper.ProductEntityMapper;
 import com.nk.salesengineapi.infrastructure.persistence.repository.ProductJpaRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -30,6 +32,15 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
     public List<ProductModel> findAll() {
         return jpaRepository.findAll()
                 .stream().map(modelMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductModel> findAllById(List<Long> ids) {
+        List<ProductEntity> list = jpaRepository.findAllById(ids);
+        return list
+                .stream()
+                .map(modelMapper::toDomain)
                 .collect(Collectors.toList());
     }
 
