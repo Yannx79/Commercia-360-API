@@ -35,8 +35,9 @@ public class TimeModel {
     public boolean isValidYear() {
         return yearCode != null && yearCode.matches("\\d{4}");
     }
+
     public void generateDescriptionIfMissing() {
-        if (description == null || description.isBlank() && date != null) {
+        if ((description == null || description.isBlank()) && date != null) {
             LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             this.description = "Date: " + localDate.format(DateTimeFormatter.ISO_DATE);
         }
